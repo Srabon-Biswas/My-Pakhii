@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Few Things About You</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  color: #432630;
+  background:
+    radial-gradient(circle at 10% 10%, #ffe1ea 0, transparent 28%),
+    radial-gradient(circle at 90% 90%, #ffe1ea 0, transparent 28%),
+    #fff8fa;
+}
+.card {
+  width: 100%;
+  max-width: 430px;
+  min-height: 700px;
+  padding: 40px 24px 28px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid #f0d6de;
+  border-radius: 30px;
+  box-shadow: 0 20px 55px rgba(90,40,55,0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: appear 0.7s ease;
+}
+#home,
+#result,
+#final {
+  width: 100%;
+  text-align: center;
+}
+.small-text {
+  margin: 0 0 15px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9a6573;
+}
+h1 {
+  margin: 0;
+  font-size: 31px;
+  line-height: 1.25;
+}
+.line {
+  margin: 20px 0;
+  color: #c17d90;
+  font-size: 14px;
+  letter-spacing: 4px;
+}
+.intro-text {
+  max-width: 320px;
+  margin: 0 auto;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #62434c;
+}
+.note {
+  max-width: 340px;
+  margin: 30px auto 22px;
+  padding: 17px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #fff0f4;
+  border: 1px solid #f3d4dd;
+  border-radius: 18px;
+}
+.note p {
+  margin: 0;
+  font-size: 16px;
+  font-style: italic;
+}
+.note span {
+  font-size: 20px;
+}
+.pick {
+  margin: 0 0 15px;
+  font-size: 16px;
+  color: #6d4a54;
+}
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.choices button {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #eccbd5;
+  border-radius: 18px;
+  background: white;
+  color: #432630;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.choices button:hover {
+  transform: translateY(-3px);
+  background: #fff0f4;
+  box-shadow: 0 8px 22px rgba(120,55,75,0.12);
+}
+.choices button.selected {
+  background: #f9dce5;
+  border-color: #d99aaa;
+}
+.disclaimer {
+  max-width: 355px;
+  margin: 25px auto 0;
+  padding: 16px;
+  border: 1px dashed #dfb2bf;
+  border-radius: 16px;
+  background: #fffafa;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #76545e;
+}
+.disclaimer strong {
+  font-family: Georgia, serif;
+  font-size: 14px;
+  color: #54313c;
+}
+.disclaimer span {
+  display: block;
+  margin-top: 5px;
+}
+.bottom-decoration {
+  margin-top: 25px;
+  color: #d094a4;
+  font-size: 14px;
+  letter-spacing: 5px;
+}
+.big-emoji {
+  margin-bottom: 18px;
+  font-size: 58px;
+}
+#title {
+  font-size: 29px;
+}
+/* PICTURES */
+.result-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+  border-radius: 20px;
+  border: 1px solid #f0d6de;
+  box-shadow: 0 12px 30px rgba(90,40,55,0.15);
+  animation: imageAppear 0.5s ease;
+}
+#shayari {
+  margin: 28px 5px;
+  white-space: pre-line;
+  font-size: 18px;
+  line-height: 2;
+  color: #54343e;
+}
+.back {
+  padding: 13px 25px;
+  border: 1px solid #e5b8c4;
+  border-radius: 17px;
+  background: #fff0f4;
+  color: #54313c;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+.hidden {
+  display: none !important;
+}
+.progress {
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #9a6573;
+}
+#finalMessage {
+  margin-top: 25px;
+  padding: 18px;
+  background: #fff0f4;
+  border-radius: 18px;
+  font-size: 16px;
+  line-height: 1.7;
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes imageAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (max-width: 400px) {
+  .card {
+    min-height: 650px;
+    padding: 35px 20px 24px;
+  }
+  h1 {
+    font-size: 28px;
+  }
+  .intro-text {
+    font-size: 16px;
+  }
+  .result-image {
+    max-width: 100%;
+    border-radius: 18px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <!-- HOME PAGE -->
+  <div id="home">
+    <p class="small-text">
+      MADE WITH A LITTLE EXTRA THOUGHT for My Pakhi
+    </p>
+    <h1>
+      A Few Things<br>
+      About You ^π^
+    </h1>
+    <div class="line">
+      ✦ ───────── ✦
+    </div>
+    <p class="intro-text">
+      I could've just told you in chats,
+      but where's the fun in that? 🙂
+    </p>
+    <div class="note">
+      <span>🌷</span>
+      <p>There are 3 things I noticed...</p>
+      <span>🌷</span>
+    </div>
+    <p class="pick">
+      Choose all three 👀
+    </p>
+    <div class="choices">
+      <button id="eyes">
+        👁️ &nbsp; Eyes
+      </button>
+      <button id="smile">
+        👄 &nbsp; Smile
+      </button>
+      <button id="hair">
+        🎀 &nbsp; Hair
+      </button>
+    </div>
+    <div class="progress">
+      0 / 3 discovered
+    </div>
+    <div class="disclaimer">
+      <strong>Disclaimer</strong>
+      <br>
+      Please click every single option to see how
+      <i>Pakhi</i> or <i>Lokkhi</i> deserves to be treated.
+      <br>
+      <span>
+        Loveeeeee Youuuuuu A Lottttttt 🥹💘
+      </span>
+    </div>
+    <div class="bottom-decoration">
+      ✦ &nbsp; ✧ &nbsp; ✦
+    </div>
+  </div>
+  <!-- SHAYARI PAGE -->
+  <div id="result" class="hidden">
+    <!-- EYES PICTURE -->
+    <img
+      id="eyesImage"
+      class="result-image hidden"
+      src="https://i.postimg.cc/d0LYGBYQ/FE4D0A25-70E7-40E7-94E1-4C3D2B0B291D.jpg"
+      alt="Eyes"
+    >
+    <!-- SMILE PICTURE -->
+    <img
+      id="smileImage"
+      class="result-image hidden"
+      src="https://i.postimg.cc/vT99TfBh/C634A722-2CD0-4C1F-89C2-58DB9F35B8B7.jpg"
+      alt="Smile"
+    >
+    <!-- HAIR PICTURE -->
+    <img
+      id="hairImage"
+      class="result-image hidden"
+      src="https://i.postimg.cc/zGDbZ9nT/E35F5AAC-2CB3-4310-BFFD-545C10B570B9.jpg"
+      alt="Hair"
+    >
+    <div id="emoji" class="big-emoji"></div>
+    <h1 id="title"></h1>
+    <p id="shayari"></p>
+    <button id="back" class="back">
+      ← Go back
+    </button>
+  </div>
+  <!-- FINAL PAGE -->
+  <div id="final" class="hidden">
+    <div class="big-emoji">
+      🌷
+    </div>
+    <h1>
+      That's all three.
+    </h1>
+    <div id="finalMessage">
+      Okay Pakhii...<br><br>
+      You clicked all three,
+      You are the most valuable and important person in my life 🥹💘 I Miss You All The Time 🥹💘
+    </div>
+    <button id="restart" class="back">
+      See them again
+    </button>
+  </div>
+</div>
+<script>
+const shayaris = {
+  eyes: {
+    emoji: "👁️",
+    title: "Aankhein — Jinmein nazrein thehar jaayein",
+    text:
+`Tumhari aankhon mein kuch toh baat hai,
+Warna yun baar-baar dekhne ka mann kyun karta hai?
+Kehte hain khoobsurti dekhne ki cheez hoti hai,
+Par tumhari aankhein toh bas dekhte rehne ki aadat bana deti hain 👁️`
+  },
+  smile: {
+    emoji: "👄",
+    title: "Hoth — Jahan muskaan ka raaz hai",
+    text:
+`Tumhare hothon ki woh halki si muskaan,
+Dil ko kar deti hai thoda sa be-imaan.
+Tum yun hi muskura diya karo kabhi kabhi,
+Kya pata… kisi ki dhadkan tumhari wajah se hi ho jawaan 🥹💘
+  },
+  hair: {
+    emoji: "🎀",
+    title: "Zulfein — Khubsurti ka halka sa parda",
+    text:
+`Tumhare baalon ki ek baat samajh nahi aati,
+Jitne lambe hain, utni hi khoobsurat lagti jaati hain.
+Aur sach kahun toh unki tareef karne ke liye lafz kam pad jaate hain,
+Isliye bas itna kahunga—
+Tum khule baalon mein kuch zyada hi achhi lagti ho 🎀`
+  }
+};
+let selected = new Set();
+const home =
+  document.getElementById("home");
+const result =
+  document.getElementById("result");
+const final =
+  document.getElementById("final");
+function openShayari(type) {
+  const data = shayaris[type];
+  selected.add(type);
+  /* Hide all pictures */
+  document
+    .getElementById("eyesImage")
+    .classList.add("hidden");
+  document
+    .getElementById("smileImage")
+    .classList.add("hidden");
+  document
+    .getElementById("hairImage")
+    .classList.add("hidden");
+  /* Show the correct picture */
+  document
+    .getElementById(type + "Image")
+    .classList.remove("hidden");
+  /* Show correct content */
+  document.getElementById("emoji").textContent =
+    data.emoji;
+  document.getElementById("title").textContent =
+    data.title;
+  document.getElementById("shayari").textContent =
+    data.text;
+  /* Update progress */
+  document.querySelector(".progress").textContent =
+    selected.size + " / 3 discovered";
+  /* Mark selected button */
+  document
+    .getElementById(type)
+    .classList.add("selected");
+  /* Switch page */
+  home.classList.add("hidden");
+  result.classList.remove("hidden");
+}
+document
+  .getElementById("eyes")
+  .addEventListener("click", function() {
+    openShayari("eyes");
+  });
+document
+  .getElementById("smile")
+  .addEventListener("click", function() {
+    openShayari("smile");
+  });
+document
+  .getElementById("hair")
+  .addEventListener("click", function() {
+    openShayari("hair");
+  });
+document
+  .getElementById("back")
+  .addEventListener("click", function() {
+    result.classList.add("hidden");
+    if (selected.size === 3) {
+      home.classList.add("hidden");
+      final.classList.remove("hidden");
+    } else {
+      home.classList.remove("hidden");
+    }
+  });
+document
+  .getElementById("restart")
+  .addEventListener("click", function() {
+    selected.clear();
+    /* Reset selected buttons */
+    document
+      .getElementById("eyes")
+      .classList.remove("selected");
+    document
+      .getElementById("smile")
+      .classList.remove("selected");
+    document
+      .getElementById("hair")
+      .classList.remove("selected");
+    /* Reset progress */
+    document.querySelector(".progress").textContent =
+      "0 / 3 discovered";
+    /* Hide final */
+    final.classList.add("hidden");
+    /* Show home */
+    home.classList.remove("hidden");
+  });
+</script>
+</body>
+</html>
