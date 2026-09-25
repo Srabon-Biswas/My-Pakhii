@@ -162,7 +162,8 @@ h1 {
   margin: 0 auto 20px;
   border-radius: 20px;
   border: 1px solid #f0d6de;
-  box-shadow: 0 12px 30px rgba(90,40,55,0.15);
+  box-shadow:
+    0 12px 30px rgba(90,40,55,0.15);
   animation: imageAppear 0.5s ease;
 }
 #shayari {
@@ -199,6 +200,7 @@ h1 {
   font-size: 16px;
   line-height: 1.7;
 }
+/* ANIMATIONS */
 @keyframes appear {
   from {
     opacity: 0;
@@ -219,6 +221,7 @@ h1 {
     transform: scale(1);
   }
 }
+/* MOBILE */
 @media (max-width: 400px) {
   .card {
     min-height: 650px;
@@ -257,7 +260,9 @@ h1 {
     </p>
     <div class="note">
       <span>🌷</span>
-      <p>There are 3 things I noticed...</p>
+      <p>
+        There are 3 things I noticed...
+      </p>
       <span>🌷</span>
     </div>
     <p class="pick">
@@ -278,7 +283,9 @@ h1 {
       0 / 3 discovered
     </div>
     <div class="disclaimer">
-      <strong>Disclaimer</strong>
+      <strong>
+        Disclaimer
+      </strong>
       <br>
       Please click every single option to see how
       <i>Pakhi</i> or <i>Lokkhi</i> deserves to be treated.
@@ -292,7 +299,7 @@ h1 {
     </div>
   </div>
   <!-- SHAYARI PAGE -->
-  <div id="result" class="hidden">
+  <div id="result">
     <!-- EYES PICTURE -->
     <img
       id="eyesImage"
@@ -314,9 +321,12 @@ h1 {
       src="https://i.postimg.cc/zGDbZ9nT/E35F5AAC-2CB3-4310-BFFD-545C10B570B9.jpg"
       alt="Hair"
     >
-    <div id="emoji" class="big-emoji"></div>
-    <h1 id="title"></h1>
-    <p id="shayari"></p>
+    <div id="emoji" class="big-emoji">
+    </div>
+    <h1 id="title">
+    </h1>
+    <p id="shayari">
+    </p>
     <button id="back" class="back">
       ← Go back
     </button>
@@ -332,7 +342,8 @@ h1 {
     <div id="finalMessage">
       Okay Pakhii...<br><br>
       You clicked all three,
-      You are the most valuable and important person in my life 🥹💘 I Miss You All The Time 🥹💘
+      You are the most valuable and important person in my life 🥹💘
+      I Miss You All The Time 🥹💘
     </div>
     <button id="restart" class="back">
       See them again
@@ -340,10 +351,14 @@ h1 {
   </div>
 </div>
 <script>
+/* =================================
+   SHAYARI
+   ================================= */
 const shayaris = {
   eyes: {
     emoji: "👁️",
-    title: "Aankhein — Jinmein nazrein thehar jaayein",
+    title:
+      "Aankhein — Jinmein nazrein thehar jaayein",
     text:
 `Tumhari aankhon mein kuch toh baat hai,
 Warna yun baar-baar dekhne ka mann kyun karta hai?
@@ -352,16 +367,18 @@ Par tumhari aankhein toh bas dekhte rehne ki aadat bana deti hain 👁️`
   },
   smile: {
     emoji: "👄",
-    title: "Hoth — Jahan muskaan ka raaz hai",
+    title:
+      "Hoth — Jahan muskaan ka raaz hai",
     text:
 `Tumhare hothon ki woh halki si muskaan,
 Dil ko kar deti hai thoda sa be-imaan.
 Tum yun hi muskura diya karo kabhi kabhi,
-Kya pata… kisi ki dhadkan tumhari wajah se hi ho jawaan 🥹💘
+Kya pata… kisi ki dhadkan tumhari wajah se hi ho jawaan 🥹💘`
   },
   hair: {
     emoji: "🎀",
-    title: "Zulfein — Khubsurti ka halka sa parda",
+    title:
+      "Zulfein — Khubsurti ka halka sa parda",
     text:
 `Tumhare baalon ki ek baat samajh nahi aati,
 Jitne lambe hain, utni hi khoobsurat lagti jaati hain.
@@ -370,17 +387,26 @@ Isliye bas itna kahunga—
 Tum khule baalon mein kuch zyada hi achhi lagti ho 🎀`
   }
 };
+/* =================================
+   SELECTED OPTIONS
+   ================================= */
 let selected = new Set();
+/* =================================
+   ELEMENTS
+   ================================= */
 const home =
   document.getElementById("home");
 const result =
   document.getElementById("result");
 const final =
   document.getElementById("final");
+/* =================================
+   OPEN SHAYARI
+   ================================= */
 function openShayari(type) {
   const data = shayaris[type];
   selected.add(type);
-  /* Hide all pictures */
+  /* Hide every picture */
   document
     .getElementById("eyesImage")
     .classList.add("hidden");
@@ -390,21 +416,31 @@ function openShayari(type) {
   document
     .getElementById("hairImage")
     .classList.add("hidden");
-  /* Show the correct picture */
+  /* Show selected picture */
   document
     .getElementById(type + "Image")
     .classList.remove("hidden");
-  /* Show correct content */
-  document.getElementById("emoji").textContent =
-    data.emoji;
-  document.getElementById("title").textContent =
-    data.title;
-  document.getElementById("shayari").textContent =
-    data.text;
+  /* Show emoji */
+  document
+    .getElementById("emoji")
+    .textContent =
+      data.emoji;
+  /* Show title */
+  document
+    .getElementById("title")
+    .textContent =
+      data.title;
+  /* Show shayari */
+  document
+    .getElementById("shayari")
+    .textContent =
+      data.text;
   /* Update progress */
-  document.querySelector(".progress").textContent =
-    selected.size + " / 3 discovered";
-  /* Mark selected button */
+  document
+    .querySelector(".progress")
+    .textContent =
+      selected.size + " / 3 discovered";
+  /* Highlight selected button */
   document
     .getElementById(type)
     .classList.add("selected");
@@ -412,21 +448,33 @@ function openShayari(type) {
   home.classList.add("hidden");
   result.classList.remove("hidden");
 }
+/* =================================
+   EYES BUTTON
+   ================================= */
 document
   .getElementById("eyes")
   .addEventListener("click", function() {
     openShayari("eyes");
   });
+/* =================================
+   SMILE BUTTON
+   ================================= */
 document
   .getElementById("smile")
   .addEventListener("click", function() {
     openShayari("smile");
   });
+/* =================================
+   HAIR BUTTON
+   ================================= */
 document
   .getElementById("hair")
   .addEventListener("click", function() {
     openShayari("hair");
   });
+/* =================================
+   GO BACK
+   ================================= */
 document
   .getElementById("back")
   .addEventListener("click", function() {
@@ -434,15 +482,19 @@ document
     if (selected.size === 3) {
       home.classList.add("hidden");
       final.classList.remove("hidden");
-    } else {
+    }
+    else {
       home.classList.remove("hidden");
     }
   });
+/* =================================
+   RESTART
+   ================================= */
 document
   .getElementById("restart")
   .addEventListener("click", function() {
     selected.clear();
-    /* Reset selected buttons */
+    /* Reset buttons */
     document
       .getElementById("eyes")
       .classList.remove("selected");
@@ -453,8 +505,10 @@ document
       .getElementById("hair")
       .classList.remove("selected");
     /* Reset progress */
-    document.querySelector(".progress").textContent =
-      "0 / 3 discovered";
+    document
+      .querySelector(".progress")
+      .textContent =
+        "0 / 3 discovered";
     /* Hide final */
     final.classList.add("hidden");
     /* Show home */
